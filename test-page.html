@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Test Page</title>
+</head>
+<body>
+  <h1>Test Page - If you can see this, the server is working!</h1>
+  <script>
+    console.log('JavaScript is working!');
+    fetch('/i18n/en-US.json')
+      .then(res => res.json())
+      .then(data => {
+        console.log('i18n loaded:', data);
+        document.body.innerHTML += '<p>i18n loaded successfully!</p>';
+      })
+      .catch(err => {
+        console.error('i18n failed:', err);
+        document.body.innerHTML += '<p style="color:red">i18n failed to load!</p>';
+      });
+  </script>
+</body>
+</html>

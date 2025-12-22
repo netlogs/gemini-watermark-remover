@@ -12,7 +12,8 @@
   "scripts": {
     "dev": "node build.js",
     "build": "NODE_ENV=production node build.js",
-    "serve": "npx serve dist"
+    "serve": "node server.js",
+    "start": "node server.js"
   },
   "dependencies": {
     "jszip": "^3.10.1"

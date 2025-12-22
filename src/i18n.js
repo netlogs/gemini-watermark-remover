@@ -1,5 +1,5 @@
 const i18n = {
-  locale: localStorage.getItem('locale') || (navigator.language.startsWith('zh') ? 'zh-CN' : 'en-US'),
+  locale: 'en-US',
   translations: {},
 
   async init() {
@@ -12,7 +12,6 @@ const i18n = {
     const res = await fetch(`/i18n/${locale}.json?_=${Date.now()}`);
     this.translations = await res.json();
     this.locale = locale;
-    localStorage.setItem('locale', locale);
   },
 
   t(key) {
@@ -22,6 +21,10 @@ const i18n = {
   applyTranslations() {
     document.documentElement.lang = this.locale;
     document.title = this.t('title');
+    document.querySelectorAll('[data-i18n-html]').forEach(el => {
+      const key = el.getAttribute('data-i18n-html');
+      el.innerHTML = this.t(key);
+    });
     document.querySelectorAll('[data-i18n]').forEach(el => {
       const key = el.getAttribute('data-i18n');
       if (el.tagName === 'INPUT' && el.placeholder !== undefined) {
